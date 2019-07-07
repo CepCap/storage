@@ -6,12 +6,14 @@ class MyHash
   end
 
   def [](key)
-    arr.find { |el| el.first == key }[1]
+    found = arr.find { |el| el.first == key }
+    found ? found.last : nil
   end
 
   def []=(key, value)
-    if arr.find { |el| el.first == key }
-      arr.find { |el| el.first == key }[1] = value
+    found = arr.find { |el| el.first == key }
+    if found
+      found.last = value
     else
       arr << [key, value]
     end
@@ -40,13 +42,6 @@ class MyHash
       i += 1
     end
     arr
-  end
-
-  def find
-    i = 0
-    while i < arr.length do
-      return arr[i] if yield(arr[i])
-    end
   end
 
   def map
